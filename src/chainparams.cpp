@@ -279,35 +279,35 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1583294400, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1583294400, 6541416, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
         /////////////////////////////To create genesis block hash/////////////////////////////////
-        arith_uint256 bnTarget;
-        uint32_t i;
-        uint256 hash;
+        // arith_uint256 bnTarget;
+        // uint32_t i;
+        // uint256 hash;
 
-        bnTarget = arith_uint256().SetCompact(genesis.nBits);
-        std::cout << "target:" << bnTarget.GetHex() << std::endl;
-        for (i = 0; i < 4294967295; i++) {
-            genesis.nNonce=i;
-            hash = genesis.GetHash();
-            if (UintToArith256(hash) <= bnTarget){
-                    break;
-            }
-        }
-        hash = genesis.GetHash();
-        if (UintToArith256(hash) <= bnTarget){
-                std::cout << "nonce1:" << i << std::endl;
-        }
+        // bnTarget = arith_uint256().SetCompact(genesis.nBits);
+        // std::cout << "target:" << bnTarget.GetHex() << std::endl;
+        // for (i = 0; i < 4294967295; i++) {
+        //     genesis.nNonce=i;
+        //     hash = genesis.GetHash();
+        //     if (UintToArith256(hash) <= bnTarget){
+        //             break;
+        //     }
+        // }
+        // hash = genesis.GetHash();
+        // if (UintToArith256(hash) <= bnTarget){
+        //         std::cout << "nonce1:" << i << std::endl;
+        // }
         
-        std::cout << "block:" << consensus.hashGenesisBlock.GetHex() << std::endl;
-        std::cout << "merkle:" << genesis.hashMerkleRoot.GetHex() << std::endl;
+        // std::cout << "block:" << consensus.hashGenesisBlock.GetHex() << std::endl;
+        // std::cout << "merkle:" << genesis.hashMerkleRoot.GetHex() << std::endl;
         ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        assert(consensus.hashGenesisBlock == uint256S("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0000079b61cc19740ef65f3c6f28ba16dee8231cfc5e30034bf5b0b6ddcf2265"));
+        assert(genesis.hashMerkleRoot == uint256S("0x7d022b845e153f53724a724d09676d12c440bfde9a1f0e754fe0a6881d4ff498"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -342,7 +342,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618")),
+            (    0, uint256S("0x0000079b61cc19740ef65f3c6f28ba16dee8231cfc5e30034bf5b0b6ddcf2265")),
 
             1583294400, // * UNIX timestamp of last checkpoint block
             0,       // * total number of transactions between genesis and last checkpoint
