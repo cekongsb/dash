@@ -139,7 +139,7 @@ public:
         genesis = CreateGenesisBlock(1583294400, 6541416, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-        /////////////////////////////To create genesis block hash////////////////////////////////////
+        /////////////////////////////To create genesis block hash/////////////////////////////////
         // arith_uint256 bnTarget;
         // uint32_t i;
         // uint256 hash;
@@ -202,7 +202,7 @@ public:
             // (  1500, uint256S("0x000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3"))
             // (  4991, uint256S("0x000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367"))
             // (  9918, uint256S("0x00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b"))
-            ( 0, uint256S("0x00000000075c0d10371d55a60634da70f197548dbbfa4123e12abfcbc5738af9")),
+            ( 0, uint256S("0x0000079b61cc19740ef65f3c6f28ba16dee8231cfc5e30034bf5b0b6ddcf2265")),
             1583294400, // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
@@ -279,15 +279,40 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1583294400, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+
+        /////////////////////////////To create genesis block hash/////////////////////////////////
+        arith_uint256 bnTarget;
+        uint32_t i;
+        uint256 hash;
+
+        bnTarget = arith_uint256().SetCompact(genesis.nBits);
+        std::cout << "target:" << bnTarget.GetHex() << std::endl;
+        for (i = 0; i < 4294967295; i++) {
+            genesis.nNonce=i;
+            hash = genesis.GetHash();
+            if (UintToArith256(hash) <= bnTarget){
+                    break;
+            }
+        }
+        hash = genesis.GetHash();
+        if (UintToArith256(hash) <= bnTarget){
+                std::cout << "nonce1:" << i << std::endl;
+        }
+        
+        std::cout << "block:" << consensus.hashGenesisBlock.GetHex() << std::endl;
+        std::cout << "merkle:" << genesis.hashMerkleRoot.GetHex() << std::endl;
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+
         assert(consensus.hashGenesisBlock == uint256S("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
+        // vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));
+        // vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
 
         // Testnet Dash addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
@@ -317,14 +342,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618"))
-            (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
-            (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5")),
+            (    0, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618")),
 
-            1462856598, // * UNIX timestamp of last checkpoint block
-            3094,       // * total number of transactions between genesis and last checkpoint
+            1583294400, // * UNIX timestamp of last checkpoint block
+            0,       // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            500         // * estimated number of transactions per day after checkpoint
+            0         // * estimated number of transactions per day after checkpoint
         };
 
     }
