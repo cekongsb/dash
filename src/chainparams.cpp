@@ -166,8 +166,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
 
-        vSeeds.vSeeds.emplace_back("118.190.201.80");
-        // vSeeds.push_back(CDNSSeedData("dashdot.io", "dnsseed.dashdot.io"));
+        // vSeeds.vSeeds.emplace_back("118.190.201.80");
+        vSeeds.push_back(CDNSSeedData("118.190.201.80", "118.190.201.80"));
         // vSeeds.push_back(CDNSSeedData("masternode.io", "dnsseed.masternode.io"));
         // vSeeds.push_back(CDNSSeedData("dashpay.io", "dnsseed.dashpay.io"));
 
