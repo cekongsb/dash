@@ -140,22 +140,17 @@ public:
         genesis = CreateGenesisBlock(1583294400, 28917698, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-
-        bool fNegative;
-        bool fOverflow;
+        /////////////////////////////////////////////////////////////////////////////
         arith_uint256 bnTarget;
-
         uint32_t i;
         uint256 hash;
 
-        bnTarget.SetCompact(genesis.nBits, &fNegative, &fOverflow);
+        bnTarget = arith_uint256().SetCompact(genesis.nBits);
         std::cout << "target:" << bnTarget.GetHex() << std::endl;
         for (i = 0; i < 4294967295; i++) {
             genesis.nNonce=i;
             hash = genesis.GetHash();
-            //std::cout << "hash:" << hash.GetHex() << std::endl;
             if (UintToArith256(hash) <= bnTarget){
-                    //std::cout << "nonce:" << i << std::endl;
                     break;
             }
         }
@@ -166,14 +161,13 @@ public:
         
         std::cout << "block:" << consensus.hashGenesisBlock.GetHex() << std::endl;
         std::cout << "merkle:" << genesis.hashMerkleRoot.GetHex() << std::endl;
-        std::cout << "witness:" << genesis.hashWitnessMerkleRoot.GetHex() << std::endl;
-
-
+        ////////////////////////////////////////////////////////////////////////////
+        
         assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
 
-        vSeeds.push_back("118.190.201.80");
+        vSeeds.vSeeds.emplace_back("118.190.201.80");
         // vSeeds.push_back(CDNSSeedData("dashdot.io", "dnsseed.dashdot.io"));
         // vSeeds.push_back(CDNSSeedData("masternode.io", "dnsseed.masternode.io"));
         // vSeeds.push_back(CDNSSeedData("dashpay.io", "dnsseed.dashpay.io"));
