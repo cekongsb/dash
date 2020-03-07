@@ -2421,6 +2421,7 @@ void PruneAndFlush() {
 
 /** Update chainActive and related internal data structures. */
 void static UpdateTip(CBlockIndex *pindexNew) {
+    LogPrintf("---static UpdateTip()-start-\n");//2020-3-7
     const CChainParams& chainParams = Params();
     chainActive.SetTip(pindexNew);
 
@@ -2474,6 +2475,7 @@ void static UpdateTip(CBlockIndex *pindexNew) {
             }
         }
     }
+    LogPrintf("---static UpdateTip()-end-\n");//2020-3-7
 }
 
 /** Disconnect chainActive's tip. You probably want to call mempool.removeForReorg and manually re-limit mempool size after this, with cs_main held. */
