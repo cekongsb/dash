@@ -713,6 +713,7 @@ bool CMasternodePaymentVote::IsValid(CNode* pnode, int nValidationHeight, std::s
 
 bool CMasternodePayments::ProcessBlock(int nBlockHeight, CConnman& connman)
 {
+    LogPrintf("---CMasternodePayments::ProcessBlock---\n"); //2020-3-7
     // DETERMINE IF WE SHOULD BE VOTING FOR THE NEXT PAYEE
 
     if(fLiteMode || !fMasterNode) return false;
@@ -1015,6 +1016,7 @@ int CMasternodePayments::GetStorageLimit()
 
 void CMasternodePayments::UpdatedBlockTip(const CBlockIndex *pindex, CConnman& connman)
 {
+    LogPrintf("---CMasternodePayments::UpdatedBlockTip---\n"); //2020-3-7
     if(!pindex) return;
 
     nCachedBlockHeight = pindex->nHeight;

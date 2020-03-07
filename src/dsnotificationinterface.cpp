@@ -16,6 +16,7 @@
 
 void CDSNotificationInterface::InitializeCurrentBlockTip()
 {
+    LogPrintf("---CDSNotificationInterface::InitializeCurrentBlockTip---\n"); //2020-3-7
     LOCK(cs_main);
     UpdatedBlockTip(chainActive.Tip(), NULL, IsInitialBlockDownload());
 }
@@ -32,6 +33,7 @@ void CDSNotificationInterface::NotifyHeaderTip(const CBlockIndex *pindexNew, boo
 
 void CDSNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindexNew, const CBlockIndex *pindexFork, bool fInitialDownload)
 {
+    LogPrintf("---CDSNotificationInterface::UpdatedBlockTip---\n"); //2020-3-7
     if (pindexNew == pindexFork) // blocks were disconnected without any new ones
         return;
 
