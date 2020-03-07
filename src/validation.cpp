@@ -2579,17 +2579,21 @@ bool static ConnectTip(CValidationState& state, const CChainParams& chainparams,
     UpdateTip(pindexNew);
     // Tell wallet about transactions that went from mempool
     // to conflicted:
+    LogPrintf("---BOOST_FOREACH(const CTransaction &tx, txConflicted)-start-\n");   //2020-3-7
     BOOST_FOREACH(const CTransaction &tx, txConflicted) {
         GetMainSignals().SyncTransaction(tx, NULL);
     }
+    LogPrintf("---BOOST_FOREACH(const CTransaction &tx, txConflicted)-end-\n");   //2020-3-7
     // ... and about transactions that got confirmed:
     BOOST_FOREACH(const CTransaction &tx, pblock->vtx) {
         GetMainSignals().SyncTransaction(tx, pblock);
     }
+    LogPrintf("---BOOST_FOREACH(const CTransaction &tx, pblock->vtx)-end-\n");   //2020-3-7
 
     int64_t nTime6 = GetTimeMicros(); nTimePostConnect += nTime6 - nTime5; nTimeTotal += nTime6 - nTime1;
     LogPrint("bench", "  - Connect postprocess: %.2fms [%.2fs]\n", (nTime6 - nTime5) * 0.001, nTimePostConnect * 0.000001);
     LogPrint("bench", "- Connect block: %.2fms [%.2fs]\n", (nTime6 - nTime1) * 0.001, nTimeTotal * 0.000001);
+    LogPrintf("---static ConnectTip()-end-\n");   //2020-3-7
     return true;
 }
 
