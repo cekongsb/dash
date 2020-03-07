@@ -2593,6 +2593,7 @@ bool static ConnectTip(CValidationState& state, const CChainParams& chainparams,
     int64_t nTime6 = GetTimeMicros(); nTimePostConnect += nTime6 - nTime5; nTimeTotal += nTime6 - nTime1;
     LogPrint("bench", "  - Connect postprocess: %.2fms [%.2fs]\n", (nTime6 - nTime5) * 0.001, nTimePostConnect * 0.000001);
     LogPrint("bench", "- Connect block: %.2fms [%.2fs]\n", (nTime6 - nTime1) * 0.001, nTimeTotal * 0.000001);
+    
     LogPrintf("---static ConnectTip()-end-\n");   //2020-3-7
     return true;
 }
@@ -2772,18 +2773,21 @@ static bool ActivateBestChainStep(CValidationState& state, const CChainParams& c
         }
     }
 
+    LogPrintf("---ActivateBestChainStep()-1-\n");   //2020-3-7
     if (fBlocksDisconnected) {
         mempool.removeForReorg(pcoinsTip, chainActive.Tip()->nHeight + 1, STANDARD_LOCKTIME_VERIFY_FLAGS);
         LimitMempoolSize(mempool, GetArg("-maxmempool", DEFAULT_MAX_MEMPOOL_SIZE) * 1000000, GetArg("-mempoolexpiry", DEFAULT_MEMPOOL_EXPIRY) * 60 * 60);
     }
     mempool.check(pcoinsTip);
 
+    LogPrintf("---ActivateBestChainStep()-2-\n");   //2020-3-7
     // Callbacks/notifications for a new best chain.
     if (fInvalidFound)
         CheckForkWarningConditionsOnNewFork(vpindexToConnect.back());
     else
         CheckForkWarningConditions();
 
+    LogPrintf("---ActivateBestChainStep()-3-\n");   //2020-3-7
     return true;
 }
 
