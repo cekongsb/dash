@@ -2843,6 +2843,8 @@ bool ActivateBestChain(CValidationState &state, const CChainParams& chainparams,
             if (!ActivateBestChainStep(state, chainparams, pindexMostWork, pblock && pblock->GetHash() == pindexMostWork->GetBlockHash() ? pblock : NULL, fInvalidFound))
                 return false;
 
+            LogPrintf("---ActivateBestChain()-1-\n");   //2020-3-7
+
             if (fInvalidFound) {
                 // Wipe cache, we may need another branch now.
                 pindexMostWork = NULL;
@@ -2850,26 +2852,27 @@ bool ActivateBestChain(CValidationState &state, const CChainParams& chainparams,
             pindexNewTip = chainActive.Tip();
             pindexFork = chainActive.FindFork(pindexOldTip);
             fInitialDownload = IsInitialBlockDownload();
+            LogPrintf("---ActivateBestChain()-2-\n");   //2020-3-7
         }
         // When we reach this point, we switched to a new tip (stored in pindexNewTip).
 
         // Notifications/callbacks that can run without cs_main
-
+        LogPrintf("---ActivateBestChain()-3-\n");   //2020-3-7
         // Notify external listeners about the new tip.
         GetMainSignals().UpdatedBlockTip(pindexNewTip, pindexFork, fInitialDownload);
-
+        LogPrintf("---ActivateBestChain()-4-\n");   //2020-3-7
         // Always notify the UI if a new block tip was connected
         if (pindexFork != pindexNewTip) {
             uiInterface.NotifyBlockTip(fInitialDownload, pindexNewTip);
         }
     } while (pindexNewTip != pindexMostWork);
     CheckBlockIndex(chainparams.GetConsensus());
-
+    LogPrintf("---ActivateBestChain()-5-\n");   //2020-3-7
     // Write changes periodically to disk, after relay.
     if (!FlushStateToDisk(state, FLUSH_STATE_PERIODIC)) {
         return false;
     }
-
+    LogPrintf("---ActivateBestChain()-6-\n");   //2020-3-7
     return true;
 }
 
